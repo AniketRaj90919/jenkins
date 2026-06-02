@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Docker Compose Build') {
+            steps {
+                bat '''
+                    docker compose build --no-cache
+                '''
+            }
+        }
+
+        stage('Docker Compose Up') {
+            steps {
+                bat '''
+                    docker compose up -d
+                '''
+            }
+        }
+    }
+}
